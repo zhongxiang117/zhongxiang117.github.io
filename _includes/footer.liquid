@@ -23,11 +23,13 @@
                 {%- endif -%}
                 {{ site.time | date: "%Y" }},
                 {{ author }}
+                {% comment %} DEBUG: path: _include\footer.liquid
                 {% if site.copyright.revision and site.github_metadata != false -%}
                     <span class="commit">
                         {{ __revision }} <code>{{ commit }}</code>
                     </span>
                 {%- endif -%}
+                {% endcomment %}
             </p>
         </div>
     {%- endif -%}

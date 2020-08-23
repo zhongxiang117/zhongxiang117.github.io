@@ -1,16 +1,22 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> {{ site.title }}</span>
+        {% comment %} DEBUG: path: _include\addons.liquid
         {% if site.addons_branch and site.github_metadata != false %}v: {{ branch }}{% endif %}
+        {% endcomment %}
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        {%- assign items = site.addons | default: addons -%}
-        {% for item in items -%}
-            {%- if addons contains item -%}
-                {% include addons/{{ item }}.liquid %}
-            {%- endif -%}
-        {% endfor -%}
+        {% comment %} DEBUG: path: _include\addons.liquid
+            {%- assign items = site.addons | default: addons -%}
+            {% for item in items -%}
+                {%- if addons contains item -%}
+                    {% include addons/{{ item }}.liquid %}
+                {%- endif -%}
+            {% endfor -%}
+        {% endcomment %}
+        {% include addons/github.liquid %}
+        {% include addons/analytics.liquid %}
         <hr>
         <small>
             <span>
