@@ -1,0 +1,10 @@
+.jekyll-metadata
+_site
+.sass-cache
+
+*.html
+*.gem
+*.whl
+
+
+

@@ -1,0 +1,31 @@
+title: My Matter Value
+lang: en
+description: Website for my learning & gaining
+author: Xiang Zhong
+
+theme: null
+
+edit: true
+addons_branch: true
+
+addons:
+  - github
+  - i18n
+  - plugins
+  - analytics
+
+copyright:
+  revision: true
+
+readme_index:
+  with_frontmatter: true
+
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - requirements.txt
+  - jekyll-rtd-theme.gemspec
