@@ -6,5 +6,6 @@ _site
 *.gem
 *.whl
 
+comp.py
 
 
