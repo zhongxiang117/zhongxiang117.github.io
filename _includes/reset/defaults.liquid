@@ -1,14 +1,14 @@
 {%- assign description = content | strip_html | split: " " | join: " " | escape | truncate: 150 -%}
-{%- assign version = "1.1.1" -%}
+{%- assign version = "1.1.6" -%}
 {%- assign addons = "github, i18n, plugins, analytics" | split: ", " -%}
 
 {%- assign schema_date = page.date | default: site.time | date_to_xmlschema -%}
 {%- assign schema_modi = site.time | date_to_xmlschema -%}
-{%- assign schema_surl = page.url | absolute_url | replace: 'http://', 'https://' | xml_escape -%}
+{%- assign schema_surl = page.url | absolute_url | xml_escape -%}
 
 {% comment %} scss {% endcomment %}
 {%- capture site_scss -%}
-    @import "site.scss";
+    @import "jekyll-rtd-theme.scss";
     {% if site.fluid %}@import "fluid.scss";{% endif %}
     {% include assets/custom.scss %} {{ site.scss }}
 {%- endcapture -%}
@@ -22,25 +22,15 @@
 
 {% comment %} github-metadata {% endcomment %}
 {%- if site.github_metadata != false -%}
-    {%- if jekyll.environment == "production" -%}
-        {%- assign author = site.author | default: site.github.owner_name -%}
-        {%- assign branch = site.github.source.branch -%}
-        {%- assign commit = site.github.build_revision | slice: 0, 7 -%}
-        {%- assign repository_url = site.github.repository_url -%}
-        {%- assign issues_url = site.github.issues_url -%}
-        {%- assign zip_url = site.github.zip_url -%}
-        {%- capture github_edit_link %}{% github_edit_link %}{% endcapture -%}
-    {%- else -%}
-        {%- assign author = site.author | default: "[author]" -%}
-        {%- assign branch = "[branch]" -%}
-        {%- assign commit = "[commit]" -%}
-        {%- assign repository_url = "#" -%}
-        {%- assign issues_url = "#" -%}
-        {%- assign zip_url = "#" -%}
-        {%- assign github_edit_link = "#" -%}
-    {%- endif -%}
+    {%- assign author = site.author | default: site.github.owner_name -%}
+    {%- assign branch = site.github.source.branch -%}
+    {%- assign commit = site.github.build_revision | slice: 0, 7 -%}
+    {%- assign repository_url = site.github.repository_url -%}
+    {%- assign issues_url = site.github.issues_url -%}
+    {%- assign zip_url = site.github.zip_url -%}
+    {%- capture github_edit_link %}{% github_edit_link %}{% endcapture -%}
 {%- else -%}
-    {%- assign author = site.author | default: "[author]" -%}
+    {%- assign author = site.author -%}
     {%- assign branch = "" -%}
     {%- assign commit = "" -%}
     {%- assign repository_url = "" -%}
@@ -68,11 +58,13 @@
 {% comment %} content {% endcomment %}
 {%- assign content = content
     | replace: '’', "'"
-    | replace: '<pre class="highlight"><code>', "<pre>"
-    | replace: '<pre><code class=', "<pre class="
+    | replace: '<pre class="highlight"><code>', '<pre class="notranslate">'
+    | replace: '<pre><code class="', '<pre class="notranslate '
     | replace: "</code></pre>", "</pre>"
     | replace: '<code class="language-plaintext highlighter-rouge">', '<code class="literal">'
-    | replace: "<table>", '<table class="docutils align-default">' -%}
+    | replace: "<dl>", '<dl class="definition">'
+    | replace: "<table>", '<div class="wy-table-responsive"><table class="docutils align-default">'
+    | replace: "</table>", '</table></div>' -%}
 
 {% comment %} prev and next {% endcomment %}
 {%- assign workdir_files = site_files | where_exp: "item", "item.dir == page.dir" -%}

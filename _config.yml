@@ -6,16 +6,19 @@ author: Xiang Zhong
 theme: null
 
 edit: true
-addons_branch: true
+addons_branch: false
+
 
 addons:
-  - github
-  - i18n
-  - plugins
+  - github:
+    - homepage
+    - download
+  - i18n: false
+  - plugins: false
   - analytics
 
 copyright:
-  revision: true
+  revision: false
 
 readme_index:
   with_frontmatter: true
@@ -29,3 +32,6 @@ exclude:
   - LICENSE
   - requirements.txt
   - jekyll-rtd-theme.gemspec
+  - bash_updateThemeFromSource.sh
+  - bash_updateChkDiff.sh
+

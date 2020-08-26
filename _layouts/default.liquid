@@ -28,13 +28,17 @@ layout: plugins/compress
             dataLayer.push(arguments);
         }
 
-        function feedback(messages) {
-            gtag("event", "exception", {
-                "description": messages.join(":")
-            });
+        function debug() {
+            console.debug.apply(console, arguments);
         }
 
         gtag("js", new Date());
+
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("{{ site.baseurl }}/sw.caches.js");
+        } else {
+            debug("Service Worker not supported!");
+        }
     </script>
     <!-- meta -->
     <meta name="description" content="{{ description }}">
@@ -85,12 +89,12 @@ layout: plugins/compress
     </script>
     <!-- link -->
     <link rel="canonical" href="{{ schema_surl }}">
-    {% if prev %}<link rel="prev" href="{{ prev.url | absolute_url | replace: 'http://', 'https://' }}">{% endif %}
-    {% if next %}<link rel="next" href="{{ next.url | absolute_url | replace: 'http://', 'https://' }}">{% endif %}
+    {% if prev %}<link rel="prev" href="{{ prev.url | absolute_url }}">{% endif %}
+    {% if next %}<link rel="next" href="{{ next.url | absolute_url }}">{% endif %}
     <!-- theme -->
     <link rel="stylesheet" href="{{ cdn }}/assets/css/theme.css">
     <link rel="stylesheet" href="{{ cdn }}/assets/css/rougify/{{ site.rougify | default: 'github' }}.css">
-    <style>{{ site_scss | scssify }}</style>
+    <style>{{ site_scss | scssify | strip_newlines }}</style>
     <!-- icon -->
     <link rel="icon" type="image/svg+xml" href="{{ site.baseurl }}/favicon.svg">
     <!-- script -->
@@ -109,6 +113,7 @@ layout: plugins/compress
             }
         };
     </script>
+    {% include extra/head.html %}
 </head>
 
 <body class="wy-body-for-nav">
@@ -123,6 +128,9 @@ layout: plugins/compress
                         </a>
                     {% else %}
                         <a href="{{ site.baseurl }}/{% if site_lang != lang %}{{ lang }}/{% endif %}" class="icon icon-home"> {{ site.title }}</a>
+                    {% endif %}
+                    {% if site.nav_version and site.github_metadata != false %}
+                      <div class="version">{{ site.github.latest_release.name }}</div>
                     {% endif %}
                     <div role="search">
                         <form id="rtd-search-form" class="wy-form" action="{{ site.baseurl }}/search.html" method="get" autocomplete="off">
@@ -141,8 +149,12 @@ layout: plugins/compress
         <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
             <!-- MOBILE NAV -->
             <nav class="wy-nav-top" aria-label="top navigation">
-                <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-                <a href="{{ site.baseurl }}/{% if site_lang != lang %}{{ lang }}/{% endif %}">{{ site.title }}</a>
+                <div class="flex">
+                    <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+                    <div class="wy-nav-title">
+                        <a href="{{ site.baseurl }}/{% if site_lang != lang %}{{ lang }}/{% endif %}">{{ site.title }}</a>
+                    </div>
+                </div>
             </nav>
             <div class="wy-nav-content">
                 <div class="rst-content">
@@ -173,9 +185,21 @@ layout: plugins/compress
         </section>
     </div>
     {%- if site.addons %}{% include addons.liquid %}{% endif %}
+    {% include extra/footer.html %}
     <!-- script -->
-    <script src="{{ cdn }}/assets/js/theme.js"></script>
     <script src="{{ cdn }}/assets/js/anchor.min.js"></script>
+
+    {% comment %} mermaid {% endcomment %}
+    {%- if content contains '<pre class="notranslate language-mermaid">' -%}
+        {%- if site.mermaid.custom -%}
+            <script src="{{ site.mermaid.custom }}"></script>
+        {%- else -%}
+            <script src="{{ cdn }}/assets/js/mermaid.min.js"></script>
+        {%- endif %}
+        <script>
+            mermaid.initialize({% if site.mermaid.initialize %}{{ site.mermaid.initialize | jsonify }}{% else %}{}{% endif %});
+        </script>
+    {%- endif %}
     <script>
         {% include assets/common.js %}
         {% include assets/custom.js %} {{ site.script }}

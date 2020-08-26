@@ -1,14 +1,18 @@
+---
+layout: plugins/extension
+---
+
 {%- if site.debug.compress == false -%}
     {{ content }}
 {%- else -%}
-    {%- assign items = content | split: "<pre" -%}
-    {%- for item in items -%}
-        {%- assign block = item | split: "</pre>" -%}
-        {%- assign block_after = block.last | split: " " | join: " " -%}
-        {%- if block.size == 1 -%}
-            {{ block_after }}
+    {%- assign blocks = content | split: "<pre" -%}
+    {%- for block in blocks -%}
+        {%- assign child_blocks = block | split: "</pre>" -%}
+        {%- if child_blocks.size == 1 -%}
+            {{ block | split: " " | join: " " }}
         {%- else -%}
-            <pre{{ block.first }}</pre>{{ block_after }}
+            {%- comment %} current nested pre not support {% endcomment -%}
+            <pre{{ child_blocks.first }}</pre> {{ child_blocks.last | split: " " | join: " " -}}
         {%- endif -%}
     {%- endfor -%}
 {%- endif -%}
