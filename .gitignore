@@ -2,10 +2,6 @@
 _site
 .sass-cache
 
-*.html
-*.gem
-*.whl
-
 comp.py
 
 
