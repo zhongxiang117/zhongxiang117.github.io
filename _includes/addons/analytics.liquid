@@ -1,3 +1,5 @@
+{%- if site.addons.analytics == "on" or site.addons.analytics == "none" -%}
+{%- if site.addons.analytics == "on"  -%}
 <dl>
     <dt>{{ __statistics }}</dt>
     <dd>
@@ -5,7 +7,9 @@
             {{ __total_visits }} <span id="counter"><span class="progress"></span></span> <i class="fa fa-eye"></i>
         </a>
     </dd>
+    
 </dl>
+{%- endif -%}
 
 <script>
     $(document).ready(function() {
@@ -16,3 +20,4 @@
         $.getJSON(analytics.toString(), (data) => $("#counter").html(data.count));
     });
 </script>
+{%- endif -%}

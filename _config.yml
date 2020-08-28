@@ -15,7 +15,14 @@ addons:
     - download
   - i18n: false
   - plugins: false
-  - analytics
+  - analytics: none
+
+# addons.analytics:
+#     on  : it's on
+#     off : it's off
+#     none: viewer off but background running
+
+
 
 copyright:
   revision: false
