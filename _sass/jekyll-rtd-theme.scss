@@ -130,3 +130,13 @@ footer {
         display: initial;
     }
 }
+
+/* fix folder link, no performance changes on the original style*/
+.wy-menu-vertical p.caption span a {
+    color: #55a5d9;
+    font-size: inherit;
+    padding: 0px;
+    display: inline;
+    line-height: unset;
+    text-decoration: inherit;
+}

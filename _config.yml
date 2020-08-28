@@ -35,3 +35,14 @@ exclude:
   - bash_updateThemeFromSource.sh
   - bash_updateChkDiff.sh
 
+
+
+nav_version: true
+
+plugins:
+  - jemoji
+  - jekyll-avatar
+  - jekyll-mentions
+
+
+
