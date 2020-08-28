@@ -1,0 +1,99 @@
+The rule for markdown rendering
+
+
+For different folder:
+
+README.md:
+    ---
+    sort: num                              ==> sort folder in number
+    ---
+    # folder title                         ==> sidebar tile
+    {% include list.liquid all=true %}     ==> all its files in the same level
+
+
+FILES:
+    ---
+    sort: num
+    images:
+        - title: title-0                 ==> {{ page.images[0].title }}
+          link: https://image.com        ==> {{ page.images[0].link }}
+        - title: title-1                 ==> {{ page.images[1].title }}
+          link: https://image.com        ==> {{ page.images[1].link }}
+    ---
+
+
+
+# head 1        ==> sidebar file title, suggest to name it same with file's name
+## head 2
+### head 3
+#### head 4
+##### head 5
+###### head 6
+
+**bold**
+_italic_
+~~strikethrough~~
+[link](https://github.com)
+![link](https://image.com)                  ==> render image in here
+![]({{ page.image }}){: .shadow-box }       ==> shadow-box
+`inline-codes`
+
+> blockquotes
+
+```
+codeblock
+```
+
+1.
+2.  ==> ordered list
+3.
+
+*   ==> unordered list
+
+
+|  What    | Follows   |       ==> bold
+|----------|-----------|
+| A table  | A header  |
+
+
+-------------   ==> horizontal ruler
+
+
+- [ ]   unordered unchecked task list
+- [x]   unordered checked task list
+
+
+<dl>
+    <dt>Name</dt>               ==> html descriptions
+    <dd>Godzilla</dd>
+</dl>
+
+
+```javascript
+```
+
+```css
+```
+
+```mermaid
+```
+
+```note
+supports **bold**, _italic_, or ~~strikethrough~~, [Links](https://github.com)
+`inline-codes`, [`link-inline-codes`](#)
+```
+
+```tip
+```
+
+```warning
+```
+
+```danger
+```
+
+{% gist c08ee0f2726fd0e3909d %}
+{% avatar saowang %}       ==> [https://github.com/benbalter/jekyll-avatar](https://github.com/benbalter/jekyll-avatar)
+@USERNAME    ==> [https://github.com/jekyll/jekyll-mentions](https://github.com/jekyll/jekyll-mentions)
+
+

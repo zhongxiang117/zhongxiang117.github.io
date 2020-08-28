@@ -1,7 +1,8 @@
 <div class="album">
     {%- for item in include.data -%}
         <a class="item" href="{{ item.link | default: '#' }}">
-            <img src="{{ item.image }}" alt="{{ item.title }}">{{ item.title }}
+            {%- comment -%} modified xz {%- endcomment -%}
+            <img src="{{ item.link }}" alt="{{ item.title }}">{{ item.title }}
         </a>
     {%- endfor -%}
 </div>

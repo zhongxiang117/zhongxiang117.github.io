@@ -41,6 +41,8 @@ exclude:
   - jekyll-rtd-theme.gemspec
   - bash_updateThemeFromSource.sh
   - bash_updateChkDiff.sh
+  - bash_searchKeyWord.sh
+  - info_mdRule.txt
 
 
 
