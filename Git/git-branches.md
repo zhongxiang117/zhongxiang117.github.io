@@ -57,21 +57,21 @@ try to find difference among `git branch -a` & `git branch -v` & `git branch -vv
 link: [`user456814`](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-locally-and-remotely)
 
 
-### delete a local branch
+## delete a local branch
 
 ```
 git branch -d <branch>
 git branch -D <branch>  # force-delete un-merged branches
 ```
 
-### delete a remote branch
+## delete a remote branch
 
 ```
 git push origin -d <branch>
 git push origin :<branch>
 ```
 
-### delete a local remote-tracking branch
+## delete a local remote-tracking branch
 
 ```
 git branch --delete --remotes <remote>/<branch>
