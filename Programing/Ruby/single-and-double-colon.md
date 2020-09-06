@@ -100,4 +100,52 @@ which means if a namespace is defined like `::namespace`, then it is in a `globa
 ```
 
 
+```warning
+in nested module, avoid using `::`, because for namespace, it only means following the way in sequentially **opening** the module, which apparently does not equal to **defining** a module.
+```
+
+**example**
+
+
+```ruby
+module A
+    module B
+        Info = "inside B, constant Info"
+    end
+end
+
+module A
+    module B
+        module C
+            class D
+                def m
+                    puts Info
+                end
+            end
+        end
+    end
+end
+
+A::B::C::D.new.m        #==> works well
+```
+
+however,
+
+```ruby
+module A
+    module B
+        Info = "inside module B"
+    end
+end
+
+module A::B::C
+    class D
+        def m
+            puts Info
+        end
+    end
+end
+
+A::B::C::D.new.m    #==> uninitialized constant A::B::C::D::Info (NameError)
+```
 
