@@ -43,6 +43,19 @@ In Foo to_s
 `p` print raw inputs, more useful and powerful in `debugging`
 
 
+# pretty-print
+
+grateful to this answer on `stackoverflow`: [**@gioele**](https://stackoverflow.com/questions/9008847/what-is-difference-between-p-and-pp)
+
+>`p` is used to inspect a variable as a debug aide. It works printing the output of the method `#inspect`. For example `p foo` will output the content of `foo.inspect`.
+>
+>Sometimes you need to debug complex variables or nested variables. In this case `p` will output a long line that is hard to understand. Instead, `pp` will put try to arrange the content of the variable so that it is easier to understand, for example indenting nested arrays or using one line for each instance variable of a complex object. `pp` does this calling the `#pretty_inspect` method (the `pp` library adds `#pretty_inspect` methods to many classes such as `String`, `Array` or `Struct`).
+>
+>To remember: p = print, pp = pretty print.
+
+
+
+
 # Summary
 
 
@@ -51,15 +64,18 @@ graph LR
     A((Ruby Printout))
     B[[print]]
     C[[puts]]
-    D[[pp]]
+    D[[p]]
+    E[[pp]]
 
     BI(string without newline)
     CI(string in a newline)
     DI(raw inputs)
+    EI{{require pp}}
 
     A --> B -- .to_s --> BI
     A --> C -- .to_s --> CI
     A --> D -- .inspect --> DI
+    A --> E -- .pretty_inspect --> EI
 ```
 
 
