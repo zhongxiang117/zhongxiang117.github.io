@@ -58,7 +58,7 @@ grateful to this answer on `stackoverflow`: [**@gioele**](https://stackoverflow.
 
 # Summary
 
-
+{% raw %}
 ```mermaid
 graph LR
     A((Ruby Printout))
@@ -77,5 +77,5 @@ graph LR
     A --> D -- .inspect --> DI
     A --> E -- .pretty_inspect --> EI
 ```
-
+{% endraw %}
 

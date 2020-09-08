@@ -64,7 +64,7 @@ end
 
 
 liquid = File.open(args.file).read
-Liquid::Template.parse(liquid).render("content" => content)
+puts Liquid::Template.parse(liquid).render("content" => content)
 
 
 
