@@ -42,7 +42,11 @@ exclude:
   - bash_updateThemeFromSource.sh
   - bash_updateChkDiff.sh
   - bash_searchKeyWord.sh
+  - bash_findKeyWord.sh
   - info_mdRule.txt
+  - jekyll-markdown.html
+  - jekyll-markdown.md
+  - ruby-liquid-debug.rb
 
 
 
