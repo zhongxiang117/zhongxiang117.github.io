@@ -16,27 +16,12 @@ assets
 
 
 exclusions_files="
-LICENSE
-Makefile
-package.json
-README.md
-requirements.txt
-jekyll-rt-theme.gemspec
-
-Gemfile
-Gemfile.lock
-.gitignore
-.deps.sh
 "
 
 exclusions_folder="
-_sass
-_site
-assets
-test
-test_long
-_site_1
-_site_original
+js
+fonts
+rougify
 "
 
 
