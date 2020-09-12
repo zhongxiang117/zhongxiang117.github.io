@@ -48,7 +48,7 @@ fi
 ```
 
 ```note
-1. in here, for the string comparison, there is no difference between regular expression operator `==` and `=~`.
+1. in here, for the string comparison, there is no difference between regular expression operator `=~` and logical operator `==`.
 
 2. it is recommended to use double quotes to prevent shell pre-interpreter to avoid any unexpected results when the empty string is input.
 ```
