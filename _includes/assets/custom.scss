@@ -1,0 +1,10 @@
+.rst-content blockquote {
+    margin-left: 0px;
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+}
+
+
+.rst-content code, .rst-content div[class^=highlight] pre, .rst-content pre {
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
