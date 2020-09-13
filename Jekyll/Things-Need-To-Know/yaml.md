@@ -227,3 +227,14 @@ level_1:
 {% endraw %}
 
 
+```note
+If you want to make sure you are good, my suggestion is using `ruby` check your setting.
+
+```ruby
+require 'yaml'
+
+file = YAML.load_file("YOUR_YAML_FILE.yml")
+
+puts file
+```
+```

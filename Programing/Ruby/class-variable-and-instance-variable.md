@@ -5,7 +5,7 @@
 
 **In a nutshell,**
 
-* `$<varaible>`: global variable, which can be accessed by anywhere in the program
+* `$<variable>`: global variable, which can be accessed by anywhere in the program
 * `@@<variable>`: class variable, which can be accessed by all instances of that class
 * `@<variable>`: instance variable, which are only accessed by the object currently having it
 
