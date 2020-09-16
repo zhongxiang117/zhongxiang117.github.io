@@ -49,6 +49,7 @@ exclude:
   - ruby-liquid-debug.rb
   - Jekyll-rtd-theme.mm
   - Jekyll-variables.txt
+  - ruby_chkYAMLexclude.rb
 
 
 
