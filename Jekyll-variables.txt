@@ -1,0 +1,36 @@
+Jekyll Variables
+
+
+DEBUG: site.time           ==   YYYY-MM-DD HH:MM:SS +/-TTTT     (UTC Format, Time Zone)
+DEBUG: site.pages          ==   {{ PAGES }}
+DEBUG: site.posts          ==   
+DEBUG: site.related_posts  ==   
+DEBUG: site.static_files   ==   
+DEBUG: site.html_pages     ==   A subset of `site.pages` listing those which end in `.html`
+DEBUG: site.html_files     ==   A subset of `site.static_files` listing those which end in `.html`
+DEBUG: site.collections    ==   
+DEBUG: site.data           ==   In `_data`
+DEBUG: site.documents      ==   
+DEBUG: site.url            ==   Define in `_config.yml`
+DEBUG: site.baseurl        ==   
+DEBUG: page.content        ==   {{ CONTENT }}
+DEBUG: page.title          ==   
+DEBUG: page.excerpt        ==   
+DEBUG: page.url            ==   /PATH/TO/PAGE.html
+DEBUG: page.date           ==   
+DEBUG: page.id             ==   
+DEBUG: page.categories     ==   
+DEBUG: page.collection     ==   Any folder at Base starts at underscore `_`. `_posts` is `posts`.
+DEBUG: page.tags           ==   
+DEBUG: page.dir            ==   /PATH/TO/DIR
+DEBUG: page.name           ==   FILE.md             (raw post or page)
+DEBUG: page.path           ==   PATH/TO/FILE.md     (raw post or page)
+DEBUG: page.next           ==   Valid for `site.posts`
+DEBUG: page.previous       ==   Valid for `site.posts`
+
+
+Note:
+Any custom front matter that you specify will be available under `page`. For example, if you specify `custom_css: true` in a page’s front matter, that value will be available as `page.custom_css`.
+
+If you specify front matter in a `layout`, access that via layout. For example, if you specify `class: full_page` in a layout’s front matter, that value will be available as `layout.class` in the layout and its parents.
+

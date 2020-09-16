@@ -48,6 +48,7 @@ exclude:
   - jekyll-markdown.md
   - ruby-liquid-debug.rb
   - Jekyll-rtd-theme.mm
+  - Jekyll-variables.txt
 
 
 
