@@ -47,6 +47,7 @@ exclude:
   - jekyll-markdown.html
   - jekyll-markdown.md
   - ruby-liquid-debug.rb
+  - Jekyll-rtd-theme.mm
 
 
 
