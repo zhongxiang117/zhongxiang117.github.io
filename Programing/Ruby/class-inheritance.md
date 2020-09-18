@@ -89,4 +89,7 @@ test.nice       #==> nice
 However, if the methods have the same name, the _old_ methods in `method-resolution-order` will be overridden.
 
 
+```note
+for `method-resolution-order`, please read: [`method-resolution-order`](include-method-resolution-order.html)
+```
 
