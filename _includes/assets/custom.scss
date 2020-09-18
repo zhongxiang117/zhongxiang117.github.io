@@ -4,7 +4,17 @@
     padding-left: 10px;
 }
 
+.rst-content code,
+.rst-content div[class^=highlight] pre,
+.rst-content pre {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
 
-.rst-content code, .rst-content div[class^=highlight] pre, .rst-content pre {
-    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+.rst-content .document .section .admonition-pre pre {
+    line-height: 75%;
+    border: 1px solid black;
+    background-color: #AED6F1;
+    ol li {
+        margin-left: 40px;
+    }
 }

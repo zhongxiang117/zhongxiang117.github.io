@@ -10,7 +10,10 @@
         {%- assign pre_blocks = child_blocks.first | replace_first: ">", "```<temp>```" | split: "```<temp>```" -%}
         {%- assign pre_type = pre_blocks.first | replace: '"', '' | replace: " class=notranslate language-", ""  -%}
 
-        {%- if admonitions contains pre_type -%}
+        {%- if pre_type == "pre" %}
+            {%- comment %} title will be translated via ui {% endcomment -%}
+            <div class="admonition-pre">{{ pre_blocks.last | markdownify | strip_newlines -}}</div>{{ child_blocks.last -}}
+        {%- elsif admonitions contains pre_type -%}
             <div class="admonition {{ pre_type }}">
                 {%- comment %} title will be translated via ui {% endcomment -%}
                 <p class="admonition-title" ui="{{ pre_type }}"><span class="progress"></span></p>{{ pre_blocks.last | markdownify | strip_newlines -}}
