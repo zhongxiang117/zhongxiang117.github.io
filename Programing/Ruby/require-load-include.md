@@ -4,7 +4,7 @@
 # require vs load vs include
 
 
-## include
+## include & extend
 
 works for `module`s, to fulfill **mixin**, like injecting or copying/pasting _code-chuck-reference_ to current place, in a way maximumly reducing the codes repeating.
 
@@ -12,6 +12,11 @@ however, if it is used inside `class`, it has to be initialized first by using `
 
 
 for more, please read: [class-inheritance](class-inheritance.html)
+
+
+> `include` the module makes all the module's methods **instance methods** whereas `extend` the module makes all its methods **class methods**, like prepending each one of them with `self`.
+
+for more its talking, please refer: [`ruby-include-vs-extend`](include-vs-extend.html)
 
 
 ## require & require_relative
