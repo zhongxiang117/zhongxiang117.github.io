@@ -8,6 +8,7 @@ Books in a format: `[books-name]  [author]  notes`
 Sequences do not matter
 ```
 
+```pre
 * 临高启明            
 * 平凡的世界                路遥
 * 神雕侠侣                  金庸
@@ -18,5 +19,6 @@ Sequences do not matter
 * 连城诀                    金庸
 * 侠客行                    金庸
 * 雪山飞狐                  金庸
+```
 
 
