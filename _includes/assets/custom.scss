@@ -10,11 +10,13 @@
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.rst-content .document .section .admonition-pre pre {
-    line-height: 75%;
+.rst-content .section .admonition-pre pre ol {
+    line-height: 120%;
     border: 1px solid black;
     background-color: #AED6F1;
-    ol li {
+    padding-bottom: 10px;
+    li {
         margin-left: 40px;
     }
 }
+
