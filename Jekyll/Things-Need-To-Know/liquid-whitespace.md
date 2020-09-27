@@ -130,7 +130,7 @@ In total, it has three different types of loop control, in here, only the `if-el
 ```
 
 
-![`liquid-if-elsif-else-whitespace-control`](image/liquid-whitespace-control.png)
+![`liquid-if-elsif-else-whitespace-control`](file/liquid-whitespace-control.png)
 
 
 
