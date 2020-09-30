@@ -75,8 +75,12 @@ A--B--C--E--F--G      master
 
 # command
 
-git rebase --onto [C-hash]  [E-hash]  [G-hash]
+git rebase --onto [C-hash]  [D-hash]  [G-hash]
+#                              ^
+#                           take care in here
 ```
+
+**warning:** the second committed `HASH` is **not** included in the rebasing.
 
 
 # git rebase abort
