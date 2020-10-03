@@ -180,7 +180,7 @@ o-o-o-A--D--E--B--C     # then appending the local commits
 A very good document [`git-rebase-in-depth`](https://git-rebase.io/)
 
 ```note
-in case of any errors, here is a backup file: [`backup-git-rebase-in-depth`](images/git-rebase-in-depth-2020-09-23.html)
+in case of any errors, here is a backup file: [`backup-git-rebase-in-depth`](file/git-rebase-in-depth-2020-09-23.html)
 
 All rights belong to the author that link shows.
 
