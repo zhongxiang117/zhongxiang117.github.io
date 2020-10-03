@@ -1,7 +1,7 @@
 ---
 ---
 
-# Git Redo Commit
+# Git Undo Commit
 
 At some time, we may want to **go-back** early version of commits, or **undo** just-now commitment.
 
@@ -61,7 +61,7 @@ official link: [`git-restore`](https://git-scm.com/docs/git-restore)
 
 ## git push
 
-it happens when you want to **redo** a remote commit, `git push` is the choose.
+it happens when you want to **Undo** a remote commit, `git push` is the choose.
 
 official document: [`git-push`](https://git-scm.com/docs/git-push)
 
@@ -77,5 +77,18 @@ safe one, only force push to remote which is in the same with your repo refs
 
 ```
 git push <remote> <branch> --force-with-lease
+```
+
+## Undo last commit
+
+
+```
+git add file_in_changes
+git commit --amend --no-edit
+```
+
+
+```note
+for more, please refer [`git-commit`](git-commit.html)
 ```
 
