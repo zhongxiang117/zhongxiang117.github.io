@@ -7,5 +7,5 @@
 link: [https://git-scm.com/docs/git-diff](https://git-scm.com/docs/git-diff)
 
 
-![git-diff](images/git-diff.png)
+![git-diff](file/git-diff.png)
 
