@@ -11,7 +11,9 @@ official link: [`git-reset`](https://git-scm.com/docs/git-reset)
 
 > Reset current HEAD to the specified state
 
-`--mixed` is the default option, meaning set both `Index` and `HEAD` to target
+* `--mixed` is the default option, meaning set both `index` and `HEAD` to target
+* `--soft` takes effects only on `HEAD`
+* `--hard` on all three `index` and `HEAD` and `working-tree`
 
 
 ## git revert
