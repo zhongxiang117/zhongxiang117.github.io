@@ -57,6 +57,11 @@ GIT_DIR/.git/config     --local
 ```
 
 
+## show all configures and their cope
+
+```
+git config --list --show-origin --show-scope
+```
 
 
 
