@@ -230,6 +230,7 @@ level_1:
 ```note
 If you want to make sure you are good, my suggestion is using `ruby` check your setting.
 
+{% raw %}
 ```ruby
 require 'yaml'
 
@@ -237,4 +238,5 @@ file = YAML.load_file("YOUR_YAML_FILE.yml")
 
 puts file
 ```
+{% endraw %}
 ```

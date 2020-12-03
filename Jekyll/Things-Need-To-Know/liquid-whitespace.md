@@ -3,7 +3,7 @@
 
 # Liquid Whitespace Control
 
-office-like: [`liquid-whitespace-contrl`](https://shopify.github.io/liquid/basics/whitespace/)
+official link: [`liquid-whitespace-control`](https://shopify.github.io/liquid/basics/whitespace/)
 
 {% raw %}
 
