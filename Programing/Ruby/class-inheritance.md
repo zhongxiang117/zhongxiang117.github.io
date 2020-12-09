@@ -47,13 +47,7 @@ for more info, please read another post: [`ruby-include-vs-include`](include-vs-
 
 A very good document [`class-inheritance`](https://launchschool.com/books/oo_ruby/read/inheritance)
 
-```note
-in case of any errors, here is a backup file: [`backup-class-inheritance`](file/class-inheritance-9_18_2020.html)
-
-All rights belong to the author that link shows.
-
-Also, in here I express my great gratitude to OP for such a helpful and useful document!
-```
+[backup]
 
 
 # module can be overwritten
