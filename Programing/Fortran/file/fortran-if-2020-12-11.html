@@ -1,0 +1,210 @@
+﻿<html><head>
+<base href="http://www.personal.psu.edu/jhm/f90/lectures/11.html">
+<title>Using Logic, IF Statements</title>
+<meta name="Author" content="Mahaffy">
+<meta name="CreatedBy" content="WP Internet Publisher 1.0 Beta B">
+
+<style id="savepage-cssvariables">
+  :root {
+  }
+</style>
+<script id="savepage-shadowloader" type="application/javascript">
+  "use strict"
+  window.addEventListener("DOMContentLoaded",
+  function(event)
+  {
+    savepage_ShadowLoader(5);
+  },false);
+  function savepage_ShadowLoader(c){createShadowDOMs(0,document.documentElement);function createShadowDOMs(a,b){var i;if(b.localName=="iframe"||b.localName=="frame"){if(a<c){try{if(b.contentDocument.documentElement!=null){createShadowDOMs(a+1,b.contentDocument.documentElement)}}catch(e){}}}else{if(b.children.length>=1&&b.children[0].localName=="template"&&b.children[0].hasAttribute("data-savepage-shadowroot")){b.attachShadow({mode:"open"}).appendChild(b.children[0].content);b.removeChild(b.children[0]);for(i=0;i<b.shadowRoot.children.length;i++)if(b.shadowRoot.children[i]!=null)createShadowDOMs(a,b.shadowRoot.children[i])}for(i=0;i<b.children.length;i++)if(b.children[i]!=null)createShadowDOMs(a,b.children[i])}}}
+</script>
+<script id="savepage-anchor-replace" type="application/javascript">
+  "use strict"
+  window.addEventListener('DOMContentLoaded',function(event) {
+    var i,j;
+    var anchors = document.getElementsByTagName('a');
+    for (i = 0; i < anchors.length; i++)
+    {
+      j = anchors[i].href.lastIndexOf('#');
+      if (j >= 0 && anchors[i].href.substr(0,j) == document.baseURI)
+        anchors[i].href = window.location.href + anchors[i].href.substr(j)
+    }
+  },false);
+</script>
+<meta name="savepage-url" content="http://www.personal.psu.edu/jhm/f90/lectures/11.html">
+<meta name="savepage-title" content="Using Logic, IF Statements">
+<meta name="savepage-from" content="http://www.personal.psu.edu/jhm/f90/lectures/11.html">
+<meta name="savepage-date" content="Fri Dec 11 2020 12:04:03 GMT-0500 (Eastern Standard Time)">
+<meta name="savepage-state" content="Basic Items; Retain cross-origin frames; Merge CSS images; Remove unsaved URLs; Max frame depth = 5; Max resource size = 50MB; Max resource time = 10s;">
+<meta name="savepage-version" content="23.8">
+<meta name="savepage-comments" content="">
+  </head>
+<body>
+<h1>Using Logic, IF Statements</h1>
+<hr>
+<p>
+
+</p><h3>Assignment :</h3>
+<blockquote>Study the contents of the sample program <a href="../examples/iftests.html">iftests.f </a>and compile it with the -g option.  Step
+through the program under xldb or dbx using the "step" command to follow the flow of the
+program.	
+</blockquote>
+<hr>
+<p>
+
+</p><h3>New Fortran :</h3>
+<blockquote><a href="../statements/if_l.html"> IF</a>,<a href="../statements/if_b.html"> IF-THEN-ELSE-ELSE IF</a>, <a href="../statements/goto_u.html">GO TO</a>, <a href="../statements/continue.html">CONTINUE</a>, statement labels, <a href="../statements/if_a.html">Arithmetic IF</a>
+</blockquote>
+<hr>
+<p>
+
+	Now that we can make some fairly complicated comparisons, we need some statements to put
+them to use in a Fortran program.  The most important of these is the IF statement.  In its simplest
+form a logical IF simply executes some other single statement if some logical expression evaluates to
+".true.".</p><p>
+
+</p><pre>      if (iprint.eq.1) print *, 'The value of x is ', x
+      if ( x.le.5) y=0
+      if( x.gt. 5) y = (x-5.)**2
+</pre>
+	The last two of these if statements can be combined into a more powerful block IF
+,THEN, ELSE construct.<p>
+
+</p><pre>      if ( x.le.5) then
+         y=0
+      else
+         y=(x=5.)**2
+      endif
+</pre>
+Note the use of indentation in this string of statements to add clarity.   Also note that the THEN 
+never exists in isolation.  It always exists at the end of a statement beginning with IF, and tells
+the computer to execute the following block of statements (block ended with an ELSE or
+ENDIF) if the logical expression is true. <p>
+
+	The ELSE portion is not mandatory, and more than one statement can be included in the
+conditional block:</p><p>
+
+</p><pre>      if (iprint.gt.1)   then
+         print *, 'The value of x is ', x
+         iprint=iprint+1
+      endif
+</pre>
+	The IF,THEN,ELSE block structure was introduced in Fortran 77.  Before that the single
+statement form of the logical IF was used.  How did we deal with the need for the more
+complicated conditional code structures?  The secret was a combination of statement labels, and
+the Fortran GO TO statement.  The above example might have been programmed as:<p>
+
+</p><pre>      if (iprint.le.1)   go to 100
+         print *, 'The value of x is ', x
+         iprint=iprint+1
+  100 z=x+3
+</pre>
+where the final labeled line is just the next statement in the program after the "endif" in the
+previous example.  The label can be placed anywhere in columns 1 through 5, enough space to
+contain numbers through 99999. As you would expect a given label number can be assigned to
+only one Fortran statement in any given program unit.  Several subroutines in the same program
+can all contain a label 100, because they are ignorant of the details of each other's internal
+contents. Please note the change in the conditional test so that execution branches to the
+statement at label 100 when iprint is less than or equal to one.   This older Fortran construct is
+very close to what happens in the machine CPU conditional Branch instructions.  In archaic
+Fortran, the earlier, more complex IF, THEN, ELSE example would be:<p>
+
+</p><pre>  <a name="1"></a>    if ( x.gt.5) go to 110
+         y=0
+      go to 120
+ 110     y=(x=5.)**2
+ 120  continue
+</pre>
+The last line introduces another Fortran Statement, CONTINUE.  It is a place marker statement,
+used as a target of a branch, or, as we will see later, the end of a loop.  However, CONTINUE
+does not do anything itself.  I admit this is a bit of a paradox in our grand scheme of things, an
+"executable statement" that actually doesn't represent the execution of any machine instruction.<p>
+
+	If you think about the last example above, you should realize that "GO TO" can result in
+very complex, unreadable code, often producing surprising results.  This problem led directly to
+the IF, THEN, ELSE, and some later Fortran 90 organized structures.  It has also led to other
+languages that don't even contain the direct equivalent of a "GO TO", and teachers who don't
+admit its existence.</p><p>
+
+	IF, THEN, ELSE's can be nested (one IF, THEN, ELSE contained in another.</p><p>
+
+</p><pre>      if ( x.le.5) then
+         y=0
+         if( x.le.2) then
+            z=0.
+         else
+            z=2.
+         endif
+      else
+         y=(x=5.)**2
+         z=3.
+      endif
+</pre>
+	Note the importance of proper indentation in the above structure, to make it readable. 
+This is a point where I have problems with modern structured programming emphasis on using
+these structures to the exclusion of "GO TO" statements.  There comes a point where so many
+lines of code exist between each IF and ELSE, and so much nesting is going on, that the code
+again becomes unreadable.  There are instances where it is easier to decipher a program by doing
+a pattern search on specific label numbers, than by tracking indentation.  Good programming like
+life is a balancing act.<p>
+
+	IF structures have one more level of complexity, the ELSE IF statement.</p><p>
+
+</p><pre>      if ( x.gt.5) then
+         y=100.
+      else if ( x.gt.4.) then
+         y=50
+      else if ( x.gt.2) then
+         y=25.
+      else
+         y=0.
+      endif
+</pre>
+It is important to know that when the first IF is found to be true in this structure, no other IF's are
+tested.  Flow branches to the ENDIF statement after completion of statements associated with the
+first true IF test.  In the above example, if x is 5.5, then the resulting value of y is 100. <p>
+
+<a name="if_a">	</a>While we are on the subject of IF's, you should be aware of one archaic form called the
+arithmetic IF.  I introduce this only because some of you will be asked to improve an existing
+program.  You should not use this in any new programming.  There is a good chance that it will
+be dropped from some future Fortran standard.  The arithmetic IF can be recognized by the fact
+that the expression within the parentheses results in a numerical result, not a logical (true, false)
+result.  The other give-away is the string of three integers (statement label references) after the
+right parenthesis.</p><p>
+
+</p><pre>      if ( b**2-4*a*c) 100,200,300
+  100    print *, 'Roots are Complex'
+      go to 400
+  200    print *, 'Single Real Root' 
+      go to 400
+  300    print *, 'Two Real Roots'
+  400 continue
+</pre>
+If the arithmetic expression produces a value less than zero, execution branches to the first label
+in the list.  If it is zero, control branches to the second label, and if the value is greater than zero
+the program branches to the third label.  Repetition of label numbers is permitted in the IF's label
+list.  Note that I must include extra "GO TO" statements to prevent execution of some of the
+PRINT statements after the initial branch to another PRINT.<p>
+
+</p><p>
+
+</p><hr>
+<p>
+
+<a href="clusters/l8">Check you knowledge</a> of this material, but first <a href="clusters/warn.html">be sure</a> your Web Browser works correctly.</p><p>
+
+</p><hr>
+<p>
+
+</p><h2>Back to the <a href="quickref.html">Table of Contents</a><b> / </b><a href="../201.html">Home</a><b></b></h2><b>
+<hr>
+<p>
+
+</p><address>Written and Maintained by <a href="http://cac.psu.edu/~jhm/jhm.html">John Mahaffy</a> : <a href="mailto:jhm@psu.edu">jhm@psu.edu</a>
+</address>
+<hr>
+<p>
+
+</p><address>
+
+
+</address></b></body></html>
