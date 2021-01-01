@@ -67,7 +67,7 @@ root.mainloop()
 
 ![tk-button-textvariable](file/tk-button/tk-button-2-1.jpg)
 
-we can see, only "Know" is shown.
+we can see, only "Knob" is shown.
 
 
 ### proof 2, delete contents of textvariable
@@ -249,8 +249,14 @@ we can see,
 
 1. anchor only works on when "text-box" is bigger than size of text
 2. `padx & pady` only pads on outside of "text box"
-3. the unit for `padx & pady` is unknown (if anyone happens to see this and know the answer, please email me and let me know...)
-4. the unit for `width & height` is always on rules defined in `Dimension`
+3. the unit for `padx & pady` is <please refer below>
+4. the unit for `width & height` is <please refer below>
+
+Now, I totally figured out what is the unit for "3" & "4", please refer this question & answer: [stackoverflow-change-font-size-without-messing-with-tkinter-button-size](https://stackoverflow.com/questions/42840070/change-font-size-without-messing-with-tkinter-button-size)
+
+Actually, the size of `tk.Button` is based on the size of character that it contains (meaningful & reasonable).
+
+And for the workaround, wow, they are so brilliant, thanks for those talent peoples' contributing!
 
 
 
