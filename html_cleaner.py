@@ -2,6 +2,16 @@
 
 import sys
 from bs4 import BeautifulSoup
+import argparse
+
+
+FEATURES = [
+    'version 0.1    : HTMLCleaner',
+    'version 0.2    : add filter for cnblog',
+]
+
+
+VERSION = FEATURES[-1].split(':')[0].strip()
 
 
 class HTMLCleaner:
@@ -30,7 +40,7 @@ class HTMLCleaner:
             tags = self.soup.find_all(mf)
             for i in tags: i.decompose()
 
-        print('Note: html file is saved to {:}'.format(self.fname))
+        print('Note: html file is saved to <{:}>'.format(self.fname))
         with open(self.fname,'wt') as f: f.write(str(self.soup))
 
 
@@ -107,36 +117,80 @@ tagsdict_zhihu = {
     ],
 }
 
-if len(sys.argv) <= 1:
-    print('=>: [python3] script.py  html_file  [html_name] [csdn|zhihu]')
-    print('=>: [python3] script.py  html_file  [csdn|zhihu]')
+
+tagsdict_cnblog = {
+    'div': [
+        'blogTitle',
+        'sideBar',
+        'comment',
+        'sideToolbar',
+        'navbar',
+        'page_begin_html',
+        'header',
+        'div_digg',
+        'footer',
+        'under-post-card',
+        'postDesc',
+    ],
+}
+
+
+
+parser = argparse.ArgumentParser(description='HTML Cleaner',allow_abbrev=False)
+parser.add_argument(
+    '-v','--version',
+    action='version',
+    version='HTMLCleaner '+VERSION
+)
+parser.add_argument(
+    '-f','--file',
+    help='input html file'
+)
+parser.add_argument(
+    '-o','--fname',
+    help='output file name, if not defined, overwritten may happen'
+)
+parser.add_argument(
+    '-t','--type',
+    help='support html type, [csdn|zhihu|cnblog]'
+)
+parser.add_argument(
+    '--features',
+    help='show development features and exit',
+    action='store_true'
+)
+
+
+if len(sys.argv) == 1:
+    parser.print_help()
     exit()
 
-FILE = sys.argv[1]
-FOUT = FILE
-td = tagsdict_csdn
 
-if len(sys.argv) <= 2:
-    print('Note: processing html csdn')
+args = parser.parse_args(sys.argv[1:])
+if args.features:
+    for i in FEATURES:
+        print(i)
+    exit()
 
-if len(sys.argv) >= 3:
-    if sys.argv[2] == 'csdn':
-        print('Note: processing html csdn')
-        td = tagsdict_csdn
-    elif sys.argv[2] == 'zhihu':
-        print('Note: processing html zhihu')
-        td = tagsdict_zhihu
-    else:
-        FOUT = sys.argv[2]
 
-if len(sys.argv) >= 4:
-    if sys.argv[3] == 'csdn':
-        print('Note: processing html csdn')
-        td = tagsdict_csdn
-    elif sys.argv[3] == 'zhihu':
-        print('Note: processing html zhihu')
-        td = tagsdict_zhihu
+if args.file is None:
+    print('Warning: -f/--files html is missing')
+    exit()
 
+
+if args.type.lower() == 'zhihu':
+    print('Note: processing html type <zhihu>')
+    td = tagsdict_zhihu
+elif args.type.lower() == 'cnblog':
+    print('Note: processing html type <cnblog>')
+    td = tagsdict_cnblog
+else:
+    print('Note: processing html type <csdn>')
+    td = tagsdict_csdn
+
+
+FILE = args.file
+FOUT = FILE if args.fname is None else args.fname
 
 FD = HTMLCleaner(FILE,td,fname=FOUT)
 FD.run()
