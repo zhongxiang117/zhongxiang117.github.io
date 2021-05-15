@@ -177,8 +177,10 @@ if args.file is None:
     print('Warning: -f/--files html is missing')
     exit()
 
-
-if args.type.lower() == 'zhihu':
+if args.type is None:
+    print('Note: processing html type <csdn>')
+    td = tagsdict_csdn
+elif args.type.lower() == 'zhihu':
     print('Note: processing html type <zhihu>')
     td = tagsdict_zhihu
 elif args.type.lower() == 'cnblog':
