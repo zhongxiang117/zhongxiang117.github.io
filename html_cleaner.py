@@ -135,6 +135,13 @@ tagsdict_cnblog = {
 }
 
 
+tagsdict_weixin = {
+    'div': [
+        'qr_code_pc_outer',
+        'rich_media_area_extra',
+    ],
+}
+
 
 parser = argparse.ArgumentParser(description='HTML Cleaner',allow_abbrev=False)
 parser.add_argument(
@@ -152,7 +159,7 @@ parser.add_argument(
 )
 parser.add_argument(
     '-t','--type',
-    help='support html type, [csdn|zhihu|cnblog]'
+    help='support html type, [csdn|zhihu|cnblog|weixin]'
 )
 parser.add_argument(
     '--features',
@@ -186,6 +193,9 @@ elif args.type.lower() == 'zhihu':
 elif args.type.lower() == 'cnblog':
     print('Note: processing html type <cnblog>')
     td = tagsdict_cnblog
+elif args.type.lower() in ['weixin', 'wx']:
+    print('Note: processing html type <weixin>')
+    td = tagsdict_weixin
 else:
     print('Note: processing html type <csdn>')
     td = tagsdict_csdn
