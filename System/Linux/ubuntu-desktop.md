@@ -6,9 +6,9 @@
 ```note
 **for more**, please read:
 
-gnome desktop files: [`link-1`](https://developer.gnome.org/integration-guide/stable/desktop-files.html.en)
+[gnome desktop files](https://people.gnome.org/~shaunm/admin-guide/menustructure-6.html)
 
-unity desktop files: [`link-2`](https://help.ubuntu.com/community/UnityLaunchersAndDesktopFiles)
+[unity desktop files](https://help.ubuntu.com/community/UnityLaunchersAndDesktopFiles)
 ```
 
 
@@ -18,7 +18,7 @@ for ubuntu system, all invoked desktop files are stored under `/usr/share/applic
 
 it is convenient to install them by using `vim` (directly editing) or `desktop-file-install` (third party install).
 
-however, it is way to hard to **debug** to make sure they work, cause at most time, they just simply don't work, even have already checked by `desktop-file-validate`, because this command **can only** validate the `grammar`, it **does not** have the ability to verify the internal settings. 
+however, it is way too hard to **debug** to make sure they work, cause at most time, they just simply don't work, even they have already been checked by `desktop-file-validate`, because this command **can only** validate the `grammar`, it **does not** have the ability to verify the internal settings. 
 
 here comes up with a workaround to tackle this problem, to print out _debug_ info.
 
@@ -38,7 +38,7 @@ Terminal=false
 Categories=Development;
 ```
 
-we modify its `Exec` entry to point to another `.desktop` file, and use it call the original executor.
+we modify its `Exec` entry to point to another `executable` file, and use it call the original executor.
 
 ```
 # note: case-sensitive
@@ -48,6 +48,9 @@ Name=Gauss View
 
 # here call third executable
 Exec=/path/to/desktop-debug-bash
+
+# or you can simply redirect its error info like:
+#Exec=/path/to/your-desktopfile 2> /path/to/debugfile
 
 Icon=/path/to/gaussview-icon %F
 Type=Application
@@ -66,6 +69,7 @@ echo "Desktop-start-debug" > ~/info.txt
 echo "Desktop-done-debug" >> ~/info.txt
 ```
 
+
 # Debug Procedure
 
 **step 1**, edit original desktop file's executable to another debug file
@@ -74,5 +78,9 @@ echo "Desktop-done-debug" >> ~/info.txt
 
 **step 3**, use information in redirect file to debug the original `.desktop`
 
+
+```warning
+interestingly, it seems that `gnome-desktop` utility **cannot** read `environment variables`.
+```
 
 
