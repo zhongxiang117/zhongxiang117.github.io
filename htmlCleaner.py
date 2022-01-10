@@ -10,6 +10,9 @@ FEATURES = [
     'version 0.1    : HTMLCleaner',
     'version 0.2    : add filter for cnblog',
     'version 0.3    : more advanced',
+    'version 0.3.1  : minor fixes',
+    'version 0.4    : RELEASEing',
+    'version 0.5    : add option -rg',
 ]
 
 
@@ -62,8 +65,8 @@ class HTMLCleaner:
         self.delimiter = '-' if delimiter is None else delimiter
         self.fname = html[:html.rfind('.')] if fname is None else fname
         # time stamp
-        self.fname = self.fname[:self.fname.rfind('--')]
-        self.fname += time.strftime('--%Y %b %d %H %M.html')
+        if '--' in self.fname: self.fname = self.fname[:self.fname.rfind('--')]
+        self.fname = self.fname.strip() + time.strftime('--%Y %b %d %H %M.html')
         self.fname = self.delimiter.join(self.fname.split())
         with open(html,'rt') as f: contents = f.read()
         self.soup = BeautifulSoup(contents,'html.parser')
@@ -105,7 +108,7 @@ class HTMLCleaner:
         return myfilter
 
 
-mytypes = {
+MYTYPES = {
     'csdn': {
         'div': [
             'display:none',
@@ -124,6 +127,7 @@ mytypes = {
             'toastBox',
             'report-box',
             'bdSug',
+            'blogColumnPayAdvert',
         ],
         'iframe': [
             'google',
@@ -138,24 +142,41 @@ mytypes = {
             'ColumnPage',
             'Post-Sub',
             'bottom',
+            'Post-topicsAndReviewer',
+            'Sticky--holder',
+            'CornerButtons',
         ],
         'img': [
             'TitleImage',
         ],
+        'button': [
+            'FollowButton',
+        ]
+    },
+    'zhihuQA': {
+        'div': [
+            'Sticky',
+            'Sticky--holder',
+            'List-header',
+            'data-zop-question',
+            'QuestionStatus',
+            'QuestionHeader',
+            'Comments-container',
+        ],
+        'header': True,
     },
     'cnblog': {
         'div': [
-            'blogTitle',
-            'sideBar',
-            'comment',
-            'sideToolbar',
-            'navbar',
+            'bannerbar',
+            'top_nav',
             'page_begin_html',
             'header',
-            'div_digg',
-            'footer',
-            'under-post-card',
+            'blog_post_info_block',
             'postDesc',
+            'blog-comments-placeholder',
+            'comment_form',
+            'footer',
+            'sideBarMain',
         ],
     },
     'weixin': {
@@ -163,7 +184,43 @@ mytypes = {
             'qr_code_pc_outer',
             'rich_media_area_extra',
         ],
-    }
+    },
+    'geeks4geeks': {
+        'aside': True,
+        'div': [
+            'login-modal-div',
+            'header-main__container',
+            'header-main__wrapper',
+            'header-main__slide',
+            'sideBar--wrap',
+            'tooltip',
+            'widget-area',
+            'textBasedMannualAds',
+            'editor-buttons-container',
+            '_ap_apex_ad',
+            'article-meta',
+            'article--recommende',
+            'inArticle-disqus',
+            'side--container',
+            'cookie-consent',
+            'shell',
+        ],
+        'footer': True,
+        'button': True,
+        'iframe': True,
+    },
+    'cppdocs': {
+        'div': [
+            'I_bottom',
+            'I_top',
+            'I_nav',
+            'C_support',
+        ],
+        'table': 'C_docPrevNext',
+        'td': 'C_btnholder',
+    
+    },
+    
 }
 
 
@@ -187,7 +244,7 @@ parser.add_argument(
 )
 parser.add_argument(
     '-t','--type',
-    help='builtin predefined html type, [csdn|zhihu|cnblog|weixin]'
+    help='builtin predefined html type: ['+'|'.join(MYTYPES)+']'
 )
 parser.add_argument(
     '-g','--tags',
@@ -204,6 +261,18 @@ parser.add_argument(
         'In rules: --type will be in the first place processed if defined; '
         '--tags & --props will be collected into pairs: {tag1: props}, '
         '{tag2: props}...; if --tags is omitted, ["div"] will be used instead.'
+    )
+)
+parser.add_argument(
+    '-rg','--remove-tags',
+    nargs='+',
+    metavar='TAGS',
+    help=(
+        'Multiple tags to be removed. It is different with the option -g, '
+        'tags input in here will be fully removed, rather than with the '
+        'consideration of option -p, which is equivalent with the empty -g. '
+        'For example, "htmlCleaner.py -f FILE -g tag1 tag2" (no -p is defiend) '
+        'equals to "htmlCleaner.py -rg tag1 tag2 ..."'
     )
 )
 
@@ -231,19 +300,26 @@ if args.file is None:
 if args.type is None:
     tagsdict = {}
 else:
-    if args.type in mytypes:
+    if args.type in MYTYPES:
         print('Note: processing predefined html type <{:}>'.format(args.type))
-        tagsdict = mytypes[args.type]
+        tagsdict = MYTYPES[args.type]
     else:
         print('Warning: not predefined file type: {:}'.format(args.type))
         tagsdict = {}
+
+if args.remove_tags is None or not len(args.remove_tags):
+    pass
+else:
+    tagsdict = { i: True for i in args.remove_tags }
 
 if args.tags is None or not len(args.tags):
     if args.props is None or not len(args.props):
         if not len(tagsdict):
             print('Warning: nothing is defined, exit..')
             exit()
-    userdicts = {'div':args.props}
+        userdicts = {}
+    else:
+        userdicts = {'div':args.props}
 else:
     tmp = True if args.props is None or not len(args.props) else args.props
     userdicts = {i:tmp for i in args.tags}
