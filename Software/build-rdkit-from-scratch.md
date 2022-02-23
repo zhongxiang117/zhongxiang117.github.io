@@ -66,3 +66,20 @@ interestingly, I happen to find a issue report for RDKit at [https://github.com/
 remember, today's date is `Feb 22, 2022`, and their discussions were on early 2018.
 
 
+Important Notes!!
+
+in its official document, it provides an alternative way to specify which python executable to use, however it does not work as it expects: [https://www.rdkit.org/docs/Install.html#specifying-an-alternate-python-installation](https://www.rdkit.org/docs/Install.html#specifying-an-alternate-python-installation)
+
+```
+cmake -D PYTHON_LIBRARY=/usr/lib/python3.6/config/libpython3.6.a -D PYTHON_INCLUDE_DIR=/usr/include/python3.6/ -D PYTHON_EXECUTABLE=/usr/bin/python3 ..
+```
+
+The reason is that it is using a `static` python configuration object (generally, any compiled object ends with a `.a`), thus to properly fix it, one should change this object to the **shared** object, e.g., `.so` file.
+
+
+```
+cmake -D PYTHON_LIBRARY=/usr/lib/python3.6/config/libpython3.6.so -D PYTHON_INCLUDE_DIR=/usr/include/python3.6/ -D PYTHON_EXECUTABLE=/usr/bin/python3 ..
+```
+
+see the change: `libpython3.6.a` to `libpython3.6.so`.
+
