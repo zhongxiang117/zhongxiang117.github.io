@@ -6,7 +6,7 @@
 ```note
 **for more**, please read:
 
-[gnome desktop files](https://people.gnome.org/~shaunm/admin-guide/menustructure-6.html)
+[gnome desktop files](https://wiki.archlinux.org/title/desktop_entries)
 
 [unity desktop files](https://help.ubuntu.com/community/UnityLaunchersAndDesktopFiles)
 ```
@@ -82,5 +82,26 @@ echo "Desktop-done-debug" >> ~/info.txt
 ```warning
 interestingly, it seems that `gnome-desktop` utility **cannot** read `environment variables`.
 ```
+
+
+# For GNome gedit Chinese encoding problem
+
+Rather than by setting `gsettings set org.gnome.gedit.preferences.encodings auto-detected "['GB18030', 'UTF-8', 'CURRENT', 'ISO-8859-15', 'UTF-16']"`, the simplest solution is to modify its desktop file, where it is stored in `/usr/share/applications/org.gnome.gedit.desktop`, edit line:
+
+
+```
+Exec=gedit --encoding GB18030 %U
+
+# super important!
+DBusActivatable=false
+```
+
+
+```warning
+Also remove `DBusActivatable=true` (or set it to `false`) if present as it will cause the `Exec` line to be ignored.
+
+check: https://wiki.gnome.org/HowDoI/DBusApplicationLaunching#Changes_to_the_desktop_file
+```
+
 
 
